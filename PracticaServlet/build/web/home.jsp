@@ -1,5 +1,27 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<sql:query var="conferencias" dataSource="jdbc/practicaServlet">
+    SELECT * FROM conferencia
+</sql:query>
+    
+<table border="1">
+    <!-- column headers -->
+    <tr>
+    <c:forEach var="columnName" items="${conferencias.columnNames}">
+        <th><c:out value="${columnName}"/></th>
+    </c:forEach>
+</tr>
+<!-- column data -->
+<c:forEach var="row" items="${conferencias.rowsByIndex}">
+    <tr>
+    <c:forEach var="column" items="${row}">
+        <td><c:out value="${column}"/></td>
+    </c:forEach>
+    </tr>
+</c:forEach>
+</table>
 <!DOCTYPE html>
 <html lang="en">
   <head>
