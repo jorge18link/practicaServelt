@@ -29,7 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Administrador de Proyectos</title>
+    <title>Conferencias</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.css"/>
@@ -46,13 +46,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">AdmProyectos</a>
+          <a class="navbar-brand" href="#">Daw</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Usuarios</a></li>
-            <li><a href="#">Proyectos</a></li>
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Inicio</a></li>
+            <li class="active"><a href="#">Conferencia</a></li>
+            <li><a href="#">Asistentes</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#about"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
@@ -62,15 +62,15 @@
       </div>
     </nav>
     <div class="container usuarios">
-      <h2>Registro de Usuarios</h2>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUsuarios">Agregar Usuario</button>
+      <h2>Registro de Conferencias</h2>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUsuarios">Agregar Conferencia</button>
       <table id="tablaUsuarios" class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>#</th>
             <th>Nombre</th>
-            <th>Email</th>
-            <th>Rol</th>
+            <th>Descripcion</th>
+            <th>Fecha</th>
             <th>Editar</th>
             <th>Eliminar</th>
           </tr>
@@ -89,21 +89,22 @@
           <form action="Usuarios" method="post">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Ingresar Usuario</h4>
+              <h4 class="modal-title">Ingresar Conferencia</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                   <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre">
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="inputApellido" name="inputEmail" placeholder="Email">
+                  <input type="text" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripcion">
                 </div>
                 <div class="form-group">
-                  <select class="form-control" id="selectRol" name="selectRol">
-                    <option value="1">Desarrollador</option>
-                    <option value="2">DiseÃ±ador</option>
-                    <option value="3">Administrador</option>
-                  </select>
+                  <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" id="inputFecha" name="inputFecha" placeholder="Fecha: año-mes-dia">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                  </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -129,7 +130,9 @@
                  ]
             });
             
+            
         });
     </script>
+    
   </body>
 </html>

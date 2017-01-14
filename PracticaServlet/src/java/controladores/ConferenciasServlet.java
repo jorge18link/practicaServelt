@@ -47,6 +47,8 @@ public class ConferenciasServlet extends HttpServlet {
             
             System.out.println("ya inserte en la tabla");
             
+            con.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(ConferenciasServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,7 +60,7 @@ public class ConferenciasServlet extends HttpServlet {
         System.out.println(action);
         System.out.println(nombre + fecha + desc);
         if ("agregar".equals(action)){
-            //
+            
         }
         if ("editar".equals(action)){
             //
