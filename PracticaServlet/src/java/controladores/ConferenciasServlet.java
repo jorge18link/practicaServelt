@@ -1,24 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controladores;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
-/**
- *
- * @author CltControl
- */
+
 @WebServlet(name = "ConferenciasServlet", urlPatterns = {"/Conferencia"})
 public class ConferenciasServlet extends HttpServlet {
+
+    @Resource(name = "conferencias")
+    private DataSource conferencias;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,8 +35,21 @@ public class ConferenciasServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         
+        //Prueba con la base de datos
+        try {
+            Connection con = conferencias.getConnection();
+            PreparedStatement query= con.prepareStatement("insert into conferencia (nombre,descripcion,fecha) values (?,?,?)");
+            query.setString(1, "netbeans");
+            query.setString(2, "prueba");
+            query.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            query.executeUpdate();
+            
+            System.out.println("ya inserte en la tabla");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConferenciasServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         String action = request.getParameter("action");
         String nombre = request.getParameter("inputNombre");
