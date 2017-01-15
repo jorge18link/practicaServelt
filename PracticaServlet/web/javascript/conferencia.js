@@ -1,16 +1,26 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 
 $(document).ready(function() {
+        $(".agregar").click(function(event) {
+            $("#action").val("agregar");
+            $("#inputNombre").val("");
+            $("#inputFecha").val("");
+            $("#comment").val("");
+            $("#id").val("");
+        });
+    
 	$(".editar").click(function (ev) {
-		columnas = $($(ev.target).parents("tr")[0]).children();
-		for (var i = 0; i < columnas.length-2; i++) {
-			console.log($(columnas[i]).html())
-		}
+            $("#action").val("editar");
+            columnas = $($(ev.target).parents("tr")[0]).children();
+            $("#inputNombre").val($(columnas[1]).html());
+            $("#inputFecha").val($(columnas[2]).html());
+            $("#comment").val($(columnas[3]).html());
+            $("#id").val($(columnas[4]).html());
 		
-	})
+	});
+
+	$(".eliminar").click(function(ev) {
+            columnas = $($(ev.target).parents("tr")[0]).children();
+            $(".id").val($(columnas[4]).html());
+	});
 });
+

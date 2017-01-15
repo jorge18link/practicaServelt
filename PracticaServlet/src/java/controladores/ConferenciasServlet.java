@@ -54,10 +54,22 @@ public class ConferenciasServlet extends HttpServlet {
             Conferencia.insertar(nombre, descripcion, fecha);
         }
         if ("editar".equals(action)){
-            //
+            String fecha =request.getParameter("fecha");
+            String nombre = request.getParameter("nombre");
+            String descripcion = request.getParameter("descripcion");
+            int id = Integer.parseInt(request.getParameter("id"));
+            System.out.println(fecha+" "+nombre+" "+descripcion+" "+id);
+            
+            Conferencia.editar(id,nombre, descripcion,fecha);
         }
         if ("eliminar".equals(action)){
             //
+            String fecha =request.getParameter("fecha");
+            String nombre = request.getParameter("nombre");
+           String descripcion = request.getParameter("descripcion");
+            int id = Integer.parseInt(request.getParameter("id"));
+            
+            Conferencia.eliminar(id);
         }
         
         

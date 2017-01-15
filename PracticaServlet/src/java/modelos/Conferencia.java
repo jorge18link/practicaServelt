@@ -50,6 +50,49 @@ public class Conferencia {
         
         return false;
     }
+    
+    public static boolean editar(int id,String name, String descp, String fecha) throws SQLException{
+          
+        try {
+            DataSource dbConferencias = getDbConferencias();
+            Connection con = dbConferencias.getConnection();
+            
+            PreparedStatement query= con.prepareStatement("UPDATE conferencia SET nombre=?,descripcion=?,fecha=? WHERE id=?");
+            
+            query.setString(1, name);
+            query.setString(2, descp);
+            query.setDate(3, java.sql.Date.valueOf(fecha));
+            query.setInt(4, id);
+            query.executeUpdate();
+            con.close();
+            System.out.println("Se Actualizado Exitosamente");
+            return true;
+        } catch (NamingException ex) {
+            Logger.getLogger(Conferencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("no se actualizo");
+        return false;
+    }
+    
+    public static boolean eliminar(int id) throws SQLException{
+                try {
+            DataSource dbConferencias = getDbConferencias();
+            Connection con = dbConferencias.getConnection();
+            
+            PreparedStatement query= con.prepareStatement("DELETE FROM conferencia WHERE id=?");
+            query.setInt(1, id);
+            query.executeUpdate();
+            con.close();
+            System.out.println("Se Elimino Exitosamente");
+            return true;
+        } catch (NamingException ex) {
+            Logger.getLogger(Conferencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("no se ha eliminado");
+        return false;
+        
+    }
+    
     public static ArrayList<Conferencia> conferencias() throws SQLException, ParseException{
         //codigo de lecturas y generacion de arraylist de conferencias
         ArrayList<Conferencia> conferencias= new ArrayList();
