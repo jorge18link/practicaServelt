@@ -32,7 +32,7 @@
           <ul class="nav navbar-nav">
             <li ><a href="index.jsp">Inicio</a></li>
             <li class="active"><a href="Conferencia">Conferencias</a></li>
-            <li><a href="#">Asistentes</a></li>
+            <li><a href="asistentes.jsp">Asistentes</a></li>
           </ul>
           
         </div><!--/.nav-collapse -->
