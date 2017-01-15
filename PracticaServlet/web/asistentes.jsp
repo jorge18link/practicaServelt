@@ -83,7 +83,7 @@
                   <input type="date" class="form-control" id="inputConferencia" name="Conferencia" >
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" rows="5" id="comment" name="descripcion" placeholder="Algo que agregar..?"></textarea>
+                    <textarea class="text"  id="inputCorreo" name="correo" placeholder="Ingrese su correo"></textarea>
                 </div>
                 <div class="form-group">
                   <input type="hidden" class="form-control" id="action" name="action" value="agregar">
