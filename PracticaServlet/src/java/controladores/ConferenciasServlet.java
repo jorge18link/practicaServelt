@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -15,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import modelos.Conferencia;
 
 
 @WebServlet(name = "ConferenciasServlet", urlPatterns = {"/Conferencia"})
@@ -33,34 +38,20 @@ public class ConferenciasServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //Prueba con la base de datos
-        try {
-            Connection con = conferencias.getConnection();
-            PreparedStatement query= con.prepareStatement("insert into conferencia (nombre,descripcion,fecha) values (?,?,?)");
-            query.setString(1, "netbeans");
-            query.setString(2, "prueba");
-            query.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
-            query.executeUpdate();
-            
-            System.out.println("ya inserte en la tabla");
-            
-            con.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ConferenciasServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        request.setAttribute("conferenciasArray", Conferencia.conferencias());
         
         String action = request.getParameter("action");
-        String nombre = request.getParameter("inputNombre");
-        String fecha = request.getParameter("inputFecha");
-        String desc = request.getParameter("comment");
+        
         System.out.println(action);
-        System.out.println(nombre + fecha + desc);
+        
         if ("agregar".equals(action)){
-            
+            String nombre = request.getParameter("nombre");
+            String descripcion = request.getParameter("descripcion");
+            String fecha = request.getParameter("fecha");
+            Conferencia.insertar(nombre, descripcion, fecha);
         }
         if ("editar".equals(action)){
             //
@@ -68,6 +59,8 @@ public class ConferenciasServlet extends HttpServlet {
         if ("eliminar".equals(action)){
             //
         }
+        
+        
         
         try (PrintWriter out = response.getWriter()) {
         request.getRequestDispatcher("home.jsp")
@@ -87,7 +80,13 @@ public class ConferenciasServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ConferenciasServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConferenciasServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -101,7 +100,13 @@ public class ConferenciasServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ConferenciasServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConferenciasServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
