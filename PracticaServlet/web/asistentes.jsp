@@ -44,7 +44,7 @@
       <table id="tablaUsuarios" class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th>ID</th>
+            <th style ="display:none;">ID</th>
             <th>Cedula</th>
             <th>Nombre</th>
             <th>Apellido</th>
@@ -52,7 +52,7 @@
             <th>Correo</th>
             
             <th></th>
-            <th></th>
+          
           </tr>
         </thead>
         <tbody id ="asistentes">
@@ -69,7 +69,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Ingresar Asistente</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body ag">
                 <div class="form-group">
                   <input type="text" class="form-control" id="inputCedula" name="cedula" placeholder="Ingrese su cedula">
                 </div>
@@ -93,7 +93,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="submit" onclick="agregarAsistente();" class="btn btn-primary">Ingresar</button>
+              <button type="submit" onclick="agregarAsistente();" class="btn btn-primary" data-dismiss="modal" >Ingresar</button>
             </div>
         </div>
       </div>
@@ -102,28 +102,27 @@
     <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form action="Conferencia" method="post">
+          
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Eliminar</h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
+                
                     <label>Seguro desea eliminar el registro??</label>
-                    <div class="form-group">
-                    <input type="hidden" class="form-control id" id="idEliminar" name="id" value="">
-                    <input type="hidden" class="form-control"  name="action" value="eliminar">
-                </div>
-                </div>
+                    
+                    <p id ="id"></p>
+                
+                
                 
                 </div>
             
             <div class="modal-footer">
                 
               <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-              <button type="submit" class="btn btn-primary">SI</button>
+              <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick="eliminarAsistente();">SI</button>
             </div>
-          </form>
+          
         </div>
       </div>
     </div>
@@ -146,6 +145,21 @@
             });    
             cargarAsistentes();
             cargarConferencias();
+            
+
+
+
+
+            $("select option").click(function(event) {
+              opciones = $($(event.target).parents("select")[0]).children();
+              for (var i = 0; i < opciones.length; i++) {
+                $(opciones[i]).attr('id', '');
+              }
+              $(event.target).attr('id', 'clickeado');
+            });
+
+            
+
         });
         
         function cargarConferencias(){
@@ -166,7 +180,7 @@
                       cadena += agregar;
                   }
                   cadena += "</select></div>";
-                  $(".modal-body").append(cadena);           
+                  $(".ag").append(cadena);           
                   }
             });
         }; 
@@ -182,13 +196,15 @@
                   var cadena = '';
                   for (var i=0; i < response.length; i++){
                       cadena += '<tr>';
-                      cadena += '<td>'+response[i].id+'</td>'
+                      cadena += '<td style ="display:none;">'+response[i].id+'</td>'
                       cadena += '<td>'+response[i].cedula+'</td>';
                       cadena += '<td>'+response[i].nombre+'</td>';
                       cadena += '<td>'+response[i].apellido+'</td>';
                       cadena += '<td>'+response[i].conferencia+'</td>';
                       cadena += '<td>'+response[i].correo+'</td>';
+                      cadena += '<td><button type="submit" class="btn btn-primary" id ="eliminar" data-toggle="modal" data-target="#modalEliminar" onclick= "eliminar(event);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar</button></td>';
                       cadena += '</tr>';
+                      
                   }
                   $("#asistentes").append(cadena);                         
               }                
@@ -196,7 +212,8 @@
         }
         
         function agregarAsistente(){
-            conferencia = //aqui hay que obtener la conferencia con eso de target
+            conferencia = $("#clickeado").html();
+            //aqui hay que obtener la conferencia con eso de target
             data = {"cedula": $("#inputCedula").val(), "nombre": $("#inputNombre").val(), "apellido": $("#inputApellido").val(), "correo": $("#inputCorreo").val(), "conferencia": $("#inputConferencia").val()};
             $.ajax({  
               type: "POST",  
@@ -209,9 +226,18 @@
             });
             
         }
+
+        function eliminar(event){
+            columnas = $($(event.target).parents("tr")[0]).children();
+            var id = $(columnas[0]).html();
+            $("#id").html(id);
+        }
         
         function eliminarAsistente(){
-            var id = //Aqui hay que obtener el ID seleccionado a eliminar
+            
+             
+            var id = $("#id").html();//Aqui hay que obtener el ID seleccionado a eliminar
+
             data = {"id": id};   
             $.ajax({  
               type: "POST",  
