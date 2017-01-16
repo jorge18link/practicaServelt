@@ -108,7 +108,7 @@ public class Asistente {
         
     }
     
-    public static ArrayList<Asistente> asistentes() throws SQLException, ParseException{
+    public static ArrayList<Asistente> getAsistentes() throws SQLException, ParseException{
         //codigo de lecturas y generacion de arraylist de conferencias
         ArrayList<Asistente> asistentes= new ArrayList();
         try {
