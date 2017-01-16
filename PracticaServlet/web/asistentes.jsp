@@ -147,9 +147,66 @@
                 "aoColumnDefs": [
                     { 'bSortable': false, 'aTargets': [ 4, 5 ] }
                  ]
-            });
-            
+            });    
+            cargarAsistentes();
+            cargarConferencias();
         });
+        
+        function cargarConferencias(){
+            var conferencias = [];
+            $.ajax({  
+              type: "GET",  
+              url: "./Conferencias",  
+              data: "",  
+              success: function(response){
+                  var obj = JSON.parse(response);
+                  var id = obj.id;
+                  var nombre = obj.nombre;
+                  var desc = obj.descripcion;
+                  var fecha = obj.fecha;
+                  conferencias.push(id);
+              }}); 
+
+              var cadena = '<div class="form-group"><select id="inputConferencia" class="form-control">';
+              for (var i=0; i < conferencias.length; i++){
+                  var agregar = "<option>"+conferencias[i]+"</option>";
+                  cadena += agregar;
+              }
+              cadena += "</select></div>";
+              $(".modal-body").append(cadena);           
+        }
+        
+        function cargarAsistentes(){
+            $.ajax({  
+              type: "GET",  
+              url: "./AsistentesServlet",  
+              data: "",  
+              success: function(response){
+                  obj = JSON.parse(response);
+                  
+              }                
+            });              
+        }
+        
+        function agregarAsistente(){
+            data = {"cedula": $("#inputCedula").val(), "nombre": $("#inputNombre").val(), "apellido": $("#inputApellido").val(), "correo": $("#inputCorreo").val(), "conferencia": $("#inputConferencia").val()};
+            $.ajax({  
+              type: "POST",  
+              url: "./AsistentesRegistrar",  
+              data: data,  
+              success: function(){}              
+            });
+        }
+        
+        function eliminarAsistente(){
+            data = {"cedula": $("#inputCedula").val()};
+            $.ajax({  
+              type: "POST",  
+              url: "./AsistentesEliminar",  
+              data: data,  
+              success: function(){}                
+            });                 
+        }        
     </script>
   </body>
 </html>
