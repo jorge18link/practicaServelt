@@ -79,9 +79,6 @@
                   <input type="text" class="form-control" id="inputApellido" name="apellido" placeholder="Ingrese su apellido">
                 </div>
                 <div class="form-group">
-                  <input type="date" class="form-control" id="inputConferencia" name="Conferencia" >
-                </div>
-                <div class="form-group">
                     <textarea class="text"  id="inputCorreo" name="correo" placeholder="Ingrese su correo"></textarea>
                 </div>
                 <div class="form-group">
@@ -215,7 +212,7 @@
         }
         
         function eliminarAsistente(){
-            data = {"cedula": $("#inputCedula").val()};
+            data = {"id": $("#inputId").val()};
             $.ajax({  
               type: "POST",  
               url: "./Eliminar",  
