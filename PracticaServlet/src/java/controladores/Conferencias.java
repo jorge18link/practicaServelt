@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelos.Asistente;
+import modelos.Conferencia;
 
 /**
  *
@@ -33,7 +35,7 @@ public class Conferencias extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                
-        String json = new Gson().toJson(null/*Objeto a convertir */);
+        String json = new Gson().toJson(Conferencia.conferencias());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);
