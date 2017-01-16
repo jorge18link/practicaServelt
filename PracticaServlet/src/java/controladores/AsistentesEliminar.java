@@ -37,6 +37,7 @@ public class AsistentesEliminar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String mensaje = null;
+        System.out.println(request.getParameter("id"));
         if(Asistente.eliminar(Integer.parseInt(request.getParameter("id")))){
             mensaje = "Borrado exitoso";
         }

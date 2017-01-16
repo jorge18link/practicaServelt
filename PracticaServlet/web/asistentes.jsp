@@ -111,7 +111,7 @@
                 
                     <label>Seguro desea eliminar el registro??</label>
                     
-                    <p id ="id"></p>
+                    <p id ="id2"></p>
                 
                 
                 
@@ -230,14 +230,12 @@
         function eliminar(event){
             columnas = $($(event.target).parents("tr")[0]).children();
             var id = $(columnas[0]).html();
-            $("#id").html(id);
+            $("#id2").html(id);
         }
         
         function eliminarAsistente(){
-            
-             
-            var id = $("#id").html();//Aqui hay que obtener el ID seleccionado a eliminar
-
+            var id = $("#id2").html();  //Aqui hay que obtener el ID seleccionado a eliminar
+            console.log(id);
             data = {"id": id};   
             $.ajax({  
               type: "POST",  
