@@ -225,6 +225,7 @@ public final class asistentes_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("              url: \"./Asistentes\",  \n");
       out.write("              data: \"\",  \n");
       out.write("              success: function(response){\n");
+      out.write("                  $(\"#asistentes\").empty();  \n");
       out.write("                  console.log(response[0]);\n");
       out.write("                  var cadena = '';\n");
       out.write("                  for (var i=0; i < response.length; i++){\n");
@@ -265,7 +266,9 @@ public final class asistentes_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("              type: \"POST\",  \n");
       out.write("              url: \"./Eliminar\",  \n");
       out.write("              data: data,  \n");
-      out.write("              success: function(){}                \n");
+      out.write("              success: function(){\n");
+      out.write("                  alert(\"Eliminado\");\n");
+      out.write("              }                \n");
       out.write("            });                 \n");
       out.write("        }        \n");
       out.write("    </script>\n");
