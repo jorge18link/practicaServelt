@@ -44,6 +44,7 @@
       <table id="tablaUsuarios" class="table table-bordered table-striped">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Cedula</th>
             <th>Nombre</th>
             <th>Apellido</th>
@@ -181,6 +182,7 @@
                   var cadena = '';
                   for (var i=0; i < response.length; i++){
                       cadena += '<tr>';
+                      cadena += '<td>'+response[i].id+'</td>'
                       cadena += '<td>'+response[i].cedula+'</td>';
                       cadena += '<td>'+response[i].nombre+'</td>';
                       cadena += '<td>'+response[i].apellido+'</td>';
@@ -194,9 +196,7 @@
         }
         
         function agregarAsistente(){
-            console.log($("#inputConferencia").val());
-            console.log($('#inputConferencia').text($(this).find(":selected").text()).val());
-            /*
+            conferencia = //aqui hay que obtener la conferencia con eso de target
             data = {"cedula": $("#inputCedula").val(), "nombre": $("#inputNombre").val(), "apellido": $("#inputApellido").val(), "correo": $("#inputCorreo").val(), "conferencia": $("#inputConferencia").val()};
             $.ajax({  
               type: "POST",  
@@ -204,23 +204,26 @@
               data: data,  
               success: function(){
                   alert("Ingresado Exitosamente!");
-                  
+                  cargarAsistentes();
               }     
             });
-            cargarAsistentes();
-              */  
+            
         }
         
         function eliminarAsistente(){
-            data = {"id": $("#inputId").val()};
+            var id = //Aqui hay que obtener el ID seleccionado a eliminar
+            data = {"id": id};   
             $.ajax({  
               type: "POST",  
               url: "./Eliminar",  
               data: data,  
               success: function(){
                   alert("Eliminado");
+                  cargarAsistentes();
               }                
-            });                 
+            });
+            
+            
         }        
     </script>
   </body>
