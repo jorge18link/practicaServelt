@@ -5,3 +5,13 @@ descripcion varchar(25),
 fecha date,
 primary key(id)
 );
+
+create table Asistente(
+id integer not null auto_increment,
+cedula varchar(25),
+nombre varchar(25),
+apellido varchar(25),
+conferencia varchar(25),
+correo varchar(25),
+primary key(id)
+);
