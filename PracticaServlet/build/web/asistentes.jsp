@@ -64,7 +64,6 @@
     <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form action="Conferencia" method="post">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Ingresar Asistente</h4>
@@ -96,9 +95,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Ingresar</button>
+              <button type="submit" onclick="agregarAsistente();" class="btn btn-primary">Ingresar</button>
             </div>
-          </form>
         </div>
       </div>
     </div>
@@ -162,18 +160,18 @@
                   console.log(response[0]);
                   var cadena = '<div class="form-group"><select id="inputConferencia" class="form-control">';
                   for (var i=0; i < response.length; i++){
-                      console.log("hello");
-                      var agregar = "<option>"+response[i].nombre+"</option>";
+                      if (i===0){
+                          var agregar = "<option selected>"+response[i].nombre+"</option>";
+                      }else{
+                          var agregar = "<option>"+response[i].nombre+"</option>";
+                      }
                       cadena += agregar;
                   }
                   cadena += "</select></div>";
                   $(".modal-body").append(cadena);           
                   }
-            })}; 
-             
-              
-
-
+            });
+        }; 
         
         function cargarAsistentes(){
             $.ajax({  
@@ -181,20 +179,39 @@
               url: "./Asistentes",  
               data: "",  
               success: function(response){
-                  //obj = JSON.parse(response);
-                  
+                  $("#asistentes").empty();  
+                  console.log(response[0]);
+                  var cadena = '';
+                  for (var i=0; i < response.length; i++){
+                      cadena += '<tr>';
+                      cadena += '<td>'+response[i].cedula+'</td>';
+                      cadena += '<td>'+response[i].nombre+'</td>';
+                      cadena += '<td>'+response[i].apellido+'</td>';
+                      cadena += '<td>'+response[i].conferencia+'</td>';
+                      cadena += '<td>'+response[i].correo+'</td>';
+                      cadena += '</tr>';
+                  }
+                  $("#asistentes").append(cadena);                         
               }                
             });              
         }
         
         function agregarAsistente(){
+            console.log($("#inputConferencia").val());
+            console.log($('#inputConferencia').text($(this).find(":selected").text()).val());
+            /*
             data = {"cedula": $("#inputCedula").val(), "nombre": $("#inputNombre").val(), "apellido": $("#inputApellido").val(), "correo": $("#inputCorreo").val(), "conferencia": $("#inputConferencia").val()};
             $.ajax({  
               type: "POST",  
               url: "./Registrar",  
               data: data,  
-              success: function(){}              
+              success: function(){
+                  alert("Ingresado Exitosamente!");
+                  
+              }     
             });
+            cargarAsistentes();
+              */  
         }
         
         function eliminarAsistente(){
@@ -203,7 +220,9 @@
               type: "POST",  
               url: "./Eliminar",  
               data: data,  
-              success: function(){}                
+              success: function(){
+                  alert("Eliminado");
+              }                
             });                 
         }        
     </script>
